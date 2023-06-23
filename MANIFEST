@@ -8,5 +8,6 @@ MANIFEST			This list of files
 README
 t/Alien-libpopt/01-use.t
 t/Alien-libpopt/02-version.t
+t/Alien-libpopt/03-diag.t
 xt/Alien-libpopt/01-pod_coverage.t
 xt/Alien-libpopt/02-pod.t
