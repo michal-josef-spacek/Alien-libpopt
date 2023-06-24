@@ -10,11 +10,15 @@ env:
   PKG_NAME: popt
   PKG_UBUNTU: libpopt-dev
   PKG_HOMEBREW: popt
+  PKG_MSYS2_MINGW64: >-
+    popt
+    popt-devel
   PKG_MSYS2_MINGW64_DEPS: >-
     base-devel
     mingw-w64-x86_64-toolchain
     mingw-w64-x86_64-perl
-    mingw-w64-x86_64-curl
+    mingw-w64-x86_64-wget2
+    msys2-runtime-devel
 
 jobs:
   dist:
@@ -74,8 +78,6 @@ jobs:
         perl-version: ['5.8', '5.20', '5.30', '5.34']
         alien-install-type: [ 'system', 'share' ]
         include:
-          # Windows strawberry     | share
-          - { perl-version: '5.34' , os: windows-latest , dist: strawberry , alien-install-type: 'share'                                  }
           # Windows msys2          | system, share
           - { perl-version: '5.34' , os: windows-latest , dist: msys2      , alien-install-type: 'system'                                 }
           - { perl-version: '5.34' , os: windows-latest , dist: msys2      , alien-install-type: 'share'                                  }
@@ -105,6 +107,11 @@ jobs:
         with:
           update: true
           install: ${{ env.PKG_MSYS2_MINGW64_DEPS }}
+      - name: Set up ${{ env.PKG_NAME }} (MSYS2/MinGW pacman)
+        if: runner.os == 'Windows' && matrix.dist == 'msys2' && matrix.alien-install-type == 'system'
+        shell: msys2 {0}
+        run: |
+          pacman -S --needed --noconfirm ${{ env.PKG_MSYS2_MINGW64 }}
 
       # Setup Perl
       - name: Set up perl
