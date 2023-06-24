@@ -3,7 +3,7 @@ use alienfile;
 plugin 'PkgConfig' => 'popt';
 
 share {
-	start_url 'http://ftp.rpm.org/popt/releases/popt-1.x/';
+	start_url 'https://ftp.rpm.org/popt/releases/popt-1.x/';
 	plugin Download => (
 		filter => qr/^popt-.*\.tar\.gz$/,
 		version => qr/^popt-([0-9\.]+)/,
