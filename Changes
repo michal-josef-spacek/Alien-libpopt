@@ -1,5 +1,6 @@
 0.02
  - Add XS test.
+ - Cleanup diag test.
  - Dynamic library to separated directory.
  - Explicit setting of static/dynamic library build.
  - Use HTTPS to fetch sources.
