@@ -9,5 +9,6 @@ README
 t/Alien-libpopt/01-use.t
 t/Alien-libpopt/02-version.t
 t/Alien-libpopt/03-diag.t
+t/Alien-libpopt/04-xs.t
 xt/Alien-libpopt/01-pod_coverage.t
 xt/Alien-libpopt/02-pod.t
