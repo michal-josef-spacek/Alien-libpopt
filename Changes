@@ -3,6 +3,7 @@
  - Cleanup diag test.
  - Dynamic library to separated directory.
  - Explicit setting of static/dynamic library build.
+ - Fix Windows test build.
  - Use HTTPS to fetch sources.
 
 0.01 2023-06-24T08:05:52+02:00

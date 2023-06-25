@@ -1,9 +1,32 @@
 use alienfile;
+use Path::Tiny ();
 
-plugin 'PkgConfig' => 'popt';
+if ($^O eq 'MSWin32') {
+	my $libdir = Path::Tiny->new($^X)->parent->parent->parent->child('c/lib');
+	my $program = <<'END';
+#include <popt.h>
+int main()
+{
+	return 0;
+}
+END
+	plugin 'Probe::CBuilder' => (
+		libs => '-lpopt',
+		program => $program,
+	);
+	plugin 'Probe::CBuilder' => (
+		libs => '-L$libdir -lpopt',
+		program => $program,
+	);
+
+} else {
+	plugin 'PkgConfig' => 'popt';
+}
 
 share {
-	start_url 'https://ftp.rpm.org/popt/releases/popt-1.x/';
+	# XXX Fix https on Windows.
+	my $proto = $^O eq 'MSWin32' ? 'http' : 'https';
+	start_url $proto.'://ftp.rpm.org/popt/releases/popt-1.x/';;
 	plugin Download => (
 		filter => qr/^popt-.*\.tar\.gz$/,
 		version => qr/^popt-([0-9\.]+)/,
